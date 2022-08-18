@@ -1,4 +1,4 @@
-# Three.js Journey
+# Instructions (package from Threejs Journey)
 
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).
