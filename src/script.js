@@ -28,10 +28,34 @@ const snowNormal = textureLoader.load('/textures/snow/normal.jpg')
 const snowRoughness = textureLoader.load('/textures/snow/roughness.jpg')
 const snowAlpha = textureLoader.load('/textures/snow/alpha.jpg')
 
+snowColor.repeat.set(8,8)
+snowAmbientOcclusion.repeat.set(8,8)
+snowHeight.repeat.set(8,8)
+snowNormal.repeat.set(8,8)
+snowRoughness.repeat.set(8,8)
+snowAlpha.repeat.set(8,8)
+
+snowColor.wrapS = THREE.RepeatWrapping
+snowAmbientOcclusion.wrapS = THREE.RepeatWrapping
+snowHeight.wrapS = THREE.RepeatWrapping
+snowNormal.wrapS = THREE.RepeatWrapping
+snowRoughness.wrapS = THREE.RepeatWrapping
+
+snowColor.wrapT = THREE.RepeatWrapping
+snowAmbientOcclusion.wrapT = THREE.RepeatWrapping
+snowHeight.wrapT = THREE.RepeatWrapping
+snowNormal.wrapT = THREE.RepeatWrapping
+snowRoughness.wrapT = THREE.RepeatWrapping
+snowAlpha.wrapT = THREE.RepeatWrapping
+
+
+
+
+
 /**
- * House
+ * Spheres
  */
-// Temporary sphere
+// Planet
 const sphere = new THREE.Mesh(
     new THREE.SphereGeometry(40, 80, 80),
     new THREE.MeshStandardMaterial({ 
@@ -39,16 +63,29 @@ const sphere = new THREE.Mesh(
      })
 )
 sphere.position.y = 15
-sphere.position.z = -90
-sphere.position.x = 0
+sphere.position.z = -110
+sphere.position.x = 50
 scene.add(sphere)
+
+// Sun
+// const sun = new THREE.Mesh(
+//     new THREE.SphereGeometry(20, 60, 60),
+//     new THREE.MeshStandardMaterial({
+//         color: '#c1ccfe'
+//     })
+// )
+
+// sun.position.y = 9
+// sun.position.z = 100
+// sun.position.x = 150
+// scene.add(sun)
 
 // Floor
 const floor = new THREE.Mesh(
-    new THREE.PlaneGeometry(10, 10, 80, 80),
+    new THREE.PlaneGeometry(100, 100, 80, 80),
     new THREE.MeshStandardMaterial({ 
         map: snowColor,
-        transparent: true,
+        // transparent: true,
         alphaMap: snowAlpha,
         displacementMap: snowHeight,
         displacementScale: 0.05,
@@ -76,7 +113,7 @@ scene.add(ambientLight)
 
 // Directional light
 const moonLight = new THREE.DirectionalLight('#d1ebfe', 1)
-moonLight.position.set(0, 5, 3.648)
+moonLight.position.set(150, 9, 3.648)
 gui.add(moonLight, 'intensity').min(0).max(1).step(0.001)
 gui.add(moonLight.position, 'x').min(- 5).max(5).step(0.001)
 gui.add(moonLight.position, 'y').min(- 5).max(5).step(0.001)
@@ -84,7 +121,7 @@ gui.add(moonLight.position, 'z').min(- 5).max(5).step(0.001)
 moonLight.castShadow = true
 
 const helper = new THREE.DirectionalLightHelper(moonLight, 5)
-scene.add(moonLight, helper)
+scene.add(moonLight)
 
 /**
  * Sizes
@@ -113,7 +150,7 @@ window.addEventListener('resize', () =>
  * Camera
  */
 // Base camera
-const camera = new THREE.PerspectiveCamera(65, sizes.width / sizes.height, 0.1, 100)
+const camera = new THREE.PerspectiveCamera(65, sizes.width / sizes.height, 0.1, 1000)
 camera.position.x = 0
 camera.position.y = 0.2
 camera.position.z = 3.5
